@@ -16,31 +16,33 @@ and open the template in the editor.
         <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="css/bootstrap-modal.css">
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-        <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
-        
         <link rel="stylesheet" href="lobibox-master/dist/css/LobiBox.min.css">
-        <script src="lobibox-master/dist/js/lobibox.min.js"></script>
-        
-        <script>
                 
-            window.onload = function (){
-
-                var notify = Lobibox.notify('Success',{
-                title: 'Show',
-                img: 'erp.png';        
-                msg: 'Arquivos copiados com sucesso'            
-            });
-
-            window.onbeforeunload = function(){        
-                notify.show();        
-            } 
+        <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+        <script src="lobibox-master/dist/js/lobibox.js"></script>
+        <script src="lobibox-master/dist/js/messageboxes.min.js"></script>
+        <script src="lobibox-master/dist/js/notifications.min.js"></script>
+        <script src="lobibox-master/dist/js/lobibox.min.js" type="text/javascript"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        
+        <script type="text/javascript">
+            
+            function teste(){
+                Lobibox.notify('success', {
+                    size: 'mini',
+                    img: 'sa.png' ,
+                    msg: 'Arquivos copiados com sucesso'
+                });
+            }
             
         </script>
+        
     </head>
     
     <body style="background-color: white">
             
+        <input type="button" onclick="teste()" value="Teste">
+        
         <div class="container" style="margin-top: 50px">
             <form action="copiarArquivo.php" method="POST">
                                 
@@ -62,5 +64,5 @@ and open the template in the editor.
                 
             </form>
         </div>
-    </body>
+    </body>    
 </html>
