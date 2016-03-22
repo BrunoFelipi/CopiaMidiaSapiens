@@ -19,6 +19,37 @@ and open the template in the editor.
     <head>
         <meta charset="UTF-8">
         <title>Sapiens</title>
+        
+        <script>
+        
+        function notify($status){
+                
+            if($status === 'ok'){
+                Lobibox.notify('success', {
+                    size: 'mini',
+                    img: 'sa.png' ,
+                    msg: 'Mídia copiada com sucesso',
+                    sound: true
+                });
+            } else {
+                Lobibox.notify('error', {
+                    size: 'mini',
+                    img: 'sa.png' ,
+                    msg: 'Erro ao copiar mídia'
+                });
+            }
+        }
+
+        window.onload = function(opc, status){
+            
+            if(opc === 1){
+                notify(status);
+            }
+            
+        }
+        
+        </script>
+        
     </head>
     
     <body style="background-color: white">

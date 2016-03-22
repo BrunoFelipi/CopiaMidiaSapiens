@@ -20,32 +20,6 @@
 <link rel="stylesheet" href="lobibox-master/dist/css/LobiBox.min.css">
 <script src="lobibox-master/dist/js/lobibox.min.js"></script>
 
-<script type="text/javascript">    
-    
-    function teste($status){
-                
-        if($status === 'ok'){
-            Lobibox.notify('success', {
-                size: 'mini',
-                img: 'sa.png' ,
-                msg: 'Arquivos copiados com sucesso.<br>de: <?php $caminhoDE ?>',
-                sound: true
-            });
-        } else {
-            Lobibox.notify('error', {
-                size: 'mini',
-                img: 'sa.png' ,
-                msg: 'Erro ao copiar os arquivos'
-            });
-        }
-    }
-
-    window.onload = function (){
-        teste('ok');
-    }
-    
-</script>
-
 <?php    
-    //header("Location: inserirAcao.php");
+    header("Location: inserirAcao.php");
 ?>

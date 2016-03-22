@@ -1,5 +1,6 @@
 <?php include('conexao.php') ?>
 <?php include('./import.html') ?>
+<?php include ('./index.php') ?>
 
 <?php
     session_start();
@@ -21,17 +22,6 @@
     session_unset();
     session_destroy();
     */
-
-?>
-<html>    
-        <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
-        <script src="lobibox-master/dist/js/lobibox.js"></script>
-        <script src="lobibox-master/dist/js/messageboxes.min.js"></script>
-        <script src="lobibox-master/dist/js/notifications.min.js"></script>
-        <script src="lobibox-master/dist/js/lobibox.min.js" type="text/javascript"></script>
-        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-                
-</html>
-<?php
-    //header("Location: index.php");
+    $index.notify(1,"");
+    header("Location: index.php");
 ?>
