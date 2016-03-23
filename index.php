@@ -1,26 +1,34 @@
 <?php include('conexao.php') ?>
 <?php include('./import.html') ?>
 <?php
-$sqlProdutos = "select * from usuario";
 
 session_start();
 
-$_SESSION['sessao'] = "conectado";
-
+$sqlProdutos = "select * from usuario";
 
 ?>
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
+
 <html>
     <head>
         <meta charset="UTF-8">
         <title>Sapiens</title>
         
         <script>
+                
+        $(this).ready(function () {
+            
+            progress();
+            
+            var sess = <?php echo json_encode($_SESSION['cont']) ?>;
+                        
+            alert(sess);
+            
+            var status = <?php echo json_encode($_SESSION['status']) ?>;
+            //alert(status);
+            
+            notify(status);           
+           
+        });
         
         function notify($status){
                 
@@ -35,17 +43,9 @@ and open the template in the editor.
                 Lobibox.notify('error', {
                     size: 'mini',
                     img: 'sa.png' ,
-                    msg: 'Erro ao copiar mídia'
+                    msg: 'Erro ao copiar os arquivos'
                 });
             }
-        }
-
-        window.onload = function(opc, status){
-            
-            if(opc === 1){
-                notify(status);
-            }
-            
         }
         
         </script>
@@ -71,8 +71,7 @@ and open the template in the editor.
                 <label>Release</label>
                 <input class="form-control" type="number" min="1" max="200" value="1" name="release">
                 <br>
-                <input class="btn btn-danger" type="submit" name="sub" value="Copiar">
-                
+                <input class="btn btn-danger" type="submit" name="sub" value="Copiar">                
             </form>
         </div>
     </body>    
