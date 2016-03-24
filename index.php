@@ -16,18 +16,12 @@ $sqlProdutos = "select * from usuario";
         <script>
                 
         $(this).ready(function () {
-            
-            progress();
-            
-            var sess = <?php echo json_encode($_SESSION['cont']) ?>;
                         
-            alert(sess);
-            
+            var sess = <?php echo json_encode($_SESSION['cont']) ?>;                                    
             var status = <?php echo json_encode($_SESSION['status']) ?>;
-            //alert(status);
             
             notify(status);           
-           
+                      
         });
         
         function notify($status){
@@ -39,13 +33,15 @@ $sqlProdutos = "select * from usuario";
                     msg: 'Mídia copiada com sucesso',
                     sound: true
                 });
-            } else {
+            } else if($status === 'nok'){
                 Lobibox.notify('error', {
                     size: 'mini',
                     img: 'sa.png' ,
                     msg: 'Erro ao copiar os arquivos'
                 });
             }
+            
+            <?php unset($_SESSION['status'])?>
         }
         
         </script>
