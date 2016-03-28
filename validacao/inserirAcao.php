@@ -1,5 +1,5 @@
 <?php include('conexao.php') ?>
-<?php include('./import.html') ?>
+<?php include('import.html') ?>
 <?php include ('./index.php') ?>
 
 <?php
@@ -9,7 +9,7 @@
     $maquina = gethostbyaddr($_SERVER['REMOTE_ADDR']);
     $data = date('d-m-Y') . ' ' .date('H:i:s');
 
-    $insert = "insert into usuario values (0,'$maquina','$data')";
+    $insert = "insert into info values (0,'$maquina','$data')";
     mysqli_query($conecta, $insert);
     session_unset();
     session_destroy();    

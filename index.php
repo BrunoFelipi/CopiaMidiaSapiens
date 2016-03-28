@@ -1,12 +1,5 @@
-<?php include('conexao.php') ?>
-<?php include('./import.html') ?>
-<?php
-
-session_start();
-
-$sqlProdutos = "select * from usuario";
-
-?>
+<?php include('validacao/conexao.php') ?>
+<?php include('validacao/import.html') ?>
 
 <html>
     <head>
@@ -16,28 +9,36 @@ $sqlProdutos = "select * from usuario";
         <script>
                 
         $(this).ready(function () {
-                        
-            var sess = <?php echo json_encode($_SESSION['cont']) ?>;                                    
-            var status = <?php echo json_encode($_SESSION['status']) ?>;
-            
-            notify(status);           
-                      
+            notify(<?php echo json_encode($_SESSION['status']) ?>);                      
         });
         
         function notify($status){
                 
             if($status === 'ok'){
+                
                 Lobibox.notify('success', {
                     size: 'mini',
                     img: 'sa.png' ,
                     msg: 'Mídia copiada com sucesso',
-                    sound: true
+                    delay: false
                 });
+                
             } else if($status === 'nok'){
+                
                 Lobibox.notify('error', {
                     size: 'mini',
                     img: 'sa.png' ,
-                    msg: 'Erro ao copiar os arquivos'
+                    msg: 'Erro ao copiar os arquivos',
+                    delay: false
+                });
+                
+            } else if($status === '!existSource'){
+                    
+                Lobibox.notify('error', {
+                    size: 'mini',
+                    img: 'sa.png' ,
+                    msg: 'Release inexistente',
+                    delay: false
                 });
             }
             
@@ -50,9 +51,19 @@ $sqlProdutos = "select * from usuario";
     
     <body style="background-color: white">
             
+        <div class="container-fluid" style="margin-top: 10px">
+            <form action="login.php" method="POST">
+                
+                <button type="submit" name="login" class="btn btn-danger">
+                    Login <span class="glyphicon glyphicon-log-in"></span>
+                </button>
+                
+            </form>
+        </div>
+        
         <div class="container" style="margin-top: 50px">
             <form action="copiarArquivo.php" method="POST">
-                                
+                
                 <label>Versão</label>                
                 <select class="form-control" name="versao">
                     <?php            
