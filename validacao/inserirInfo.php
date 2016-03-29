@@ -3,7 +3,7 @@
 <?php include ('./index.php') ?>
 
 <?php
-    /*
+    
     date_default_timezone_set('America/Sao_Paulo');
 
     $maquina = gethostbyaddr($_SERVER['REMOTE_ADDR']);
@@ -13,7 +13,6 @@
     mysqli_query($conecta, $insert);
     session_unset();
     session_destroy();    
-
-    */
+    
     header("Location: index.php");    
 ?>

@@ -16,10 +16,7 @@
     $caminhoPARA = "\\\\" . 'seniorpdc' . "\\" . 'midia' . "\\" . 'Sapiens' . "\\" . $versao . "\\" . $release . "\\" . 'Liberada';
         
     $caminhoDE = $fileDE . "\\" . verificarMaiorNome($fileDE);
-    
-    echo 'DE: ' . $caminhoDE;
-    echo '<br>PARA: ' . $caminhoPARA;
-        
+            
     full_copy($caminhoDE, $caminhoPARA);
             
     function verificarMaiorNome($caminho) {
@@ -40,9 +37,10 @@
     function full_copy($source,$target){
                        
         if(!file_exists($source)){
-            $_SESSION['status'] = '!existSource';
+            $_SESSION['status'] = 'CaminhoNaoExiste';
             $_SESSION['versao'] = $_POST['versao'];
             $_SESSION['release'] = $_POST['release'];
+            $_SESSION['cadastrou'] = 'ok'; 
             header("Location: index.php");
         } else {
         
@@ -66,7 +64,7 @@
 
                     copy($Entry, $target . '/' . $entry);
 
-                    $_SESSION['status'] = 'ok';                    
+                    $_SESSION['status'] = 'MidiaCopiada';                    
                 }
 
                 $d->close();
@@ -78,7 +76,7 @@
                 }
 
                 copy($source, $target);
-                $_SESSION['status'] = 'ok';
+                $_SESSION['status'] = 'MidiaCopiada';
             }
         }
     }

@@ -140,29 +140,93 @@
                 color: rgb(12, 97, 33);
             }
             
-        </style>
+            .glyphicon.glyphicon-arrow-left {
+                font-size: 20px;
+            }
+            
+        </style>   
+                
+        <script>
+        
+        ready(function() {
+            
+            var loggedIn = <?php echo isset($_SESSION['is_logged'])?>;
+            
+            alert(loggedIn);
+
+         })();
+        
+        
+        function notify($status){
+                
+            if($status === 'MidiaCopiada'){
+                
+                Lobibox.notify('success', {
+                    size: 'mini',
+                    img: 'sa.png' ,
+                    msg: 'Mídia copiada com sucesso',
+                    delay: false
+                });
+                
+            } else if($status === '!existSource'){
+                    
+                Lobibox.notify('error', {
+                    size: 'mini',
+                    img: 'sa.png' ,
+                    msg: 'Release inexistente',
+                    delay: false
+                });
+            } else if($status === 'UsuarioNaoCadastrado'){
+                    
+                Lobibox.notify('error', {
+                    size: 'mini',
+                    img: 'sa.png' ,
+                    msg: 'Usuário não cadastrado',
+                    delay: false
+                });
+            } else if($status === 'CaminhoNaoExiste'){
+                    
+                Lobibox.notify('error', {
+                    size: 'mini',
+                    img: 'sa.png' ,
+                    msg: 'Mídia de origem não existe',
+                    delay: false
+                });
+            }
+            
+            <?php unset($_SESSION['status'])?>
+        }
+            
+        </script>
         
     </head>
         
-    <body>
-        
+    <body>        
         <div class="container">
             <div class="card card-container">
+                <div class="container-content">
+                    <a href="index.php"><span class="glyphicon glyphicon-arrow-left"></span></a>
+                </div>
+
                 <!-- <img class="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" /> -->
-                <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+                <!-- <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" /> -->
+                <img id="profile-img" class="profile-img-card" src="resources/erp-logo.png" />
                 <p id="profile-name" class="profile-name-card"></p>
-                <form class="form-signin">
-                    <span id="reauth-email" class="reauth-email"></span>
-                    <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-                    <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-                    
-                    <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
-                </form><!-- /form -->
-                <a href="#" class="forgot-password" style="text-align: left">
-                    Forgot the password?
-                </a>
                 
-                <a href="novoCadastro.php" class="forgot-password" style="padding-left: 48">
+                <form class="form-signin" method="POST" action="validacao/validarLogin.php">
+                    <span id="reauth-email" class="reauth-email"></span>
+                    <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
+                    <input type="password" name="senha" id="inputPassword" class="form-control" placeholder="Senha" required>
+                    
+                    <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Entrar</button>
+                                        
+                </form><!-- /form -->
+                
+                <a href="validacao/esqueceuSenha.php" class="forgot-password" style="text-align: left">
+                    Esqueceu sua senha?
+                </a>
+
+                <a href="novoCadastro.php" class="forgot-password" style="padding-left: 43">
                     Cadastre-se
                 </a>
                 

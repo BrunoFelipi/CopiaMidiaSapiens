@@ -14,21 +14,12 @@
         
         function notify($status){
                 
-            if($status === 'ok'){
+            if($status === 'MidiaCopiada'){
                 
                 Lobibox.notify('success', {
                     size: 'mini',
                     img: 'sa.png' ,
                     msg: 'Mídia copiada com sucesso',
-                    delay: false
-                });
-                
-            } else if($status === 'nok'){
-                
-                Lobibox.notify('error', {
-                    size: 'mini',
-                    img: 'sa.png' ,
-                    msg: 'Erro ao copiar os arquivos',
                     delay: false
                 });
                 
@@ -38,6 +29,22 @@
                     size: 'mini',
                     img: 'sa.png' ,
                     msg: 'Release inexistente',
+                    delay: false
+                });
+            } else if($status === 'UsuarioNaoCadastrado'){
+                    
+                Lobibox.notify('error', {
+                    size: 'mini',
+                    img: 'sa.png' ,
+                    msg: 'Usuário não cadastrado',
+                    delay: false
+                });
+            } else if($status === 'CaminhoNaoExiste'){
+                    
+                Lobibox.notify('error', {
+                    size: 'mini',
+                    img: 'sa.png' ,
+                    msg: 'Mídia de origem não existe',
                     delay: false
                 });
             }
@@ -62,7 +69,7 @@
         </div>
         
         <div class="container" style="margin-top: 50px">
-            <form action="copiarArquivo.php" method="POST">
+            <form action="validacao/copiarArquivo.php" method="POST">
                 
                 <label>Versão</label>                
                 <select class="form-control" name="versao">

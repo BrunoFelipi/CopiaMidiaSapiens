@@ -1,6 +1,24 @@
 <?php include('validacao/conexao.php') ?>
 <?php include('validacao/import.html') ?>
 
+<?php
+    session_start();
+
+    if(empty($_SESSION['id']) or empty($_SESSION['email'])){
+        session_destroy();
+        header("Location: ..\login.php"); 
+    }
+    
+    date_default_timezone_set('America/Sao_Paulo');
+    
+    $email = $_SESSION['email'];
+    $data = date('d-m-Y') . ' ' .date('H:i:s');
+
+    $insert = "insert into consulta values (0,'$email','$data')";
+    mysqli_query($conecta, $insert);
+    
+?>
+
 <html>    
     <head>        
         <style>            
@@ -8,12 +26,7 @@
                 height: 100%;
                 background-repeat: no-repeat;
                 background-image: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33));
-            }  
-            
-            tr.clicked {
-                background-color: orange;
-            }
-                        
+            }                        
         </style>        
     </head>
     
@@ -37,12 +50,12 @@
             </thead>
             <tbody>
                 <?php
-                $result = mysqli_query($conecta, 'select * from usuario order by id desc');
+                $result = mysqli_query($conecta, 'select * from info order by id desc');
                 while($consulta = mysqli_fetch_array($result)){
                     echo "<tr>";
                     echo "<td><font color=#d9d9d9>".$consulta["id"]."</font></td>";
                     echo "<td><font color=#d9d9d9>".$consulta["maquina"]."</font></td>";
-                    echo "<td><font color=#d9d9d9>".$consulta["dia"]."</font></td>";
+                    echo "<td><font color=#d9d9d9>".$consulta["data"]."</font></td>";
                     echo "</tr>";
                 }
                 ?>           

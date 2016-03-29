@@ -140,42 +140,52 @@
                 color: rgb(12, 97, 33);
             }
             
+            .glyphicon.glyphicon-arrow-left {
+                font-size: 20px;
+            }
+            
         </style> 
         
         <script>
                 
-            $(this).ready(function () {
-                notify(<?php echo json_encode($_SESSION['status']) ?>);                      
+            alert("AAA");
+                
+            //$(document).ready(function () {                    
+            window.document.onload() = function(){
+                
+                var status = <?php echo json_encode($_SESSION['cadastrou']) ?>;                        
+                notify(status);
             });
 
             function notify($status){
 
-                if($status === 'ok'){
+                if($status === 'Cadastrou'){
 
                     Lobibox.notify('success', {
                         size: 'mini',
                         img: 'sa.png' ,
-                        msg: 'Mídia copiada com sucesso',
+                        msg: 'Usuário cadastrado com sucesso',
                         delay: false
                     });
 
-                } else if($status === 'nok'){
+                } else if($status === 'jaExiste'){
 
                     Lobibox.notify('error', {
                         size: 'mini',
                         img: 'sa.png' ,
-                        msg: 'Erro ao copiar os arquivos',
+                        msg: 'Usuário já cadastrado',
                         delay: false
                     });
 
-                } else if($status === '!existSource'){
+                } else if($status === 'SenhaDiferente'){
 
                     Lobibox.notify('error', {
                         size: 'mini',
                         img: 'sa.png' ,
-                        msg: 'Release inexistente',
+                        msg: 'Usuário ou senha inválido',
                         delay: false
                     });
+
                 }
 
                 <?php unset($_SESSION['status'])?>
@@ -187,11 +197,17 @@
         
     <body>        
         <div class="container">
-            <div class="card card-container">
-                <img class="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" />
-                <!-- <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" /> -->
-                <p id="profile-name" class="profile-name-card"></p>
+            <div class="card card-container">                
                 
+                <div class="container-content">
+                    <a href="login.php"><span class="glyphicon glyphicon-arrow-left"></span></a>
+                </div>
+                
+                <!-- <img class="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" /> -->
+                <!-- <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" /> -->
+                <img id="profile-img" class="profile-img-card" src="resources/erp-logo.png" />
+                <p id="profile-name" class="profile-name-card"></p>
+                                
                 <form action="validacao/inserirCadastro.php" method="POST" class="form-signin">
                     
                     <span id="reauth-email" class="reauth-email"></span>

@@ -7,14 +7,35 @@
     $senha = $_POST['senha'];
     $confirmarSenha = $_POST['confirmarSenha'];
 
-    if($senha === $confirmarSenha){        
-        $insert = "insert into usuario values (0,'$email','$senha')";
-        mysqli_query($conecta, $insert);
-        
-    }
+    $select = "select * from usuario";
     
-    echo 'Email: ' . $email . '<br>';
-    echo 'Senha: ' . $senha . '<br>';
-    echo 'Confirmar Senha: ' . $confirmarSenha;
+    $result = mysqli_query($conecta, $select);
+    
+    $count = 0;
+    
+    while($consulta = mysqli_fetch_array($result)){
+        
+        if($consulta["email"] === $email){            
+            $count++;
+        }
+    }
+           
+    if($count === 0){
+        if($senha === $confirmarSenha){        
+            echo 'Email: ' . $email . "<br>";
+            echo 'Senha: ' . $senha . "<br><br>";
+            $insert = "insert into usuario values (0,'$email','$senha')";
+            
+            mysqli_query($conecta, $insert);
+            $_SESSION['status'] = 'Cadastrou';            
+            header("Location: ../novoCadastro.php");                
+        } else {
+            $_SESSION['status'] = 'SenhaDiferente';
+            header("Location: ../novoCadastro.php");
+        }        
+    } else {
+        $_SESSION['status'] = 'jaExiste';
+        header("Location: ../novoCadastro.php");
+    }   
 
 ?>
