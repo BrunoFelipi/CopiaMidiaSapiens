@@ -1,8 +1,12 @@
-<?php include('validacao/conexao.php') ?>
-<?php include('validacao/import.html') ?>
+<?php
+include('validacao/lobibox.php');
+?>
 
 <html>    
     <head>        
+
+        <?php include('validacao/importCss.html') ?>
+
         <style>
             body, html {
                 height: 100%;
@@ -139,86 +143,41 @@
             .forgot-password:focus{
                 color: rgb(12, 97, 33);
             }
-            
+
             .glyphicon.glyphicon-arrow-left {
                 font-size: 20px;
             }
-            
+
         </style> 
-        
-        <script>
-                
-            alert("AAA");
-                
-            //$(document).ready(function () {                    
-            window.document.onload() = function(){
-                
-                var status = <?php echo json_encode($_SESSION['cadastrou']) ?>;                        
-                notify(status);
-            });
 
-            function notify($status){
-
-                if($status === 'Cadastrou'){
-
-                    Lobibox.notify('success', {
-                        size: 'mini',
-                        img: 'sa.png' ,
-                        msg: 'Usuário cadastrado com sucesso',
-                        delay: false
-                    });
-
-                } else if($status === 'jaExiste'){
-
-                    Lobibox.notify('error', {
-                        size: 'mini',
-                        img: 'sa.png' ,
-                        msg: 'Usuário já cadastrado',
-                        delay: false
-                    });
-
-                } else if($status === 'SenhaDiferente'){
-
-                    Lobibox.notify('error', {
-                        size: 'mini',
-                        img: 'sa.png' ,
-                        msg: 'Usuário ou senha inválido',
-                        delay: false
-                    });
-
-                }
-
-                <?php unset($_SESSION['status'])?>
-            }
-        
-        </script>
-        
     </head>
-        
-    <body>        
+
+    <body onload="inicializa()">        
         <div class="container">
             <div class="card card-container">                
-                
+
                 <div class="container-content">
                     <a href="login.php"><span class="glyphicon glyphicon-arrow-left"></span></a>
                 </div>
-                
-                <!-- <img class="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" /> -->
-                <!-- <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" /> -->
+
+    <!-- <img class="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" /> -->
+    <!-- <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" /> -->
                 <img id="profile-img" class="profile-img-card" src="resources/erp-logo.png" />
                 <p id="profile-name" class="profile-name-card"></p>
-                                
+
                 <form action="validacao/inserirCadastro.php" method="POST" class="form-signin">
-                    
+
                     <span id="reauth-email" class="reauth-email"></span>
-                    
+
                     <input type="email" id="inputEmail" name="email" class="form-control" placeholder="Email" required autofocus>
                     <input type="password" id="inputPassword" name="senha" class="form-control" placeholder="Senha" required>
                     <input type="password" id="inputPassword" name="confirmarSenha" class="form-control" placeholder="Confirmar Senha" required>
-                    
+
                     <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Cadastrar</button>
                 </form>                              
             </div>
-        </div>        
+        </div>      
+
+        <?php include('validacao/importJs.php') ?>
     </body>    
 </html>
