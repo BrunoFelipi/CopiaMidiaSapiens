@@ -1,12 +1,10 @@
-<?php include('validacao/conexao.php') ?>
-<?php include('validacao/import.html') ?>
+<?php include('validacao/Conexao.php');
 
-<?php
     session_start();
 
     if(empty($_SESSION['id']) or empty($_SESSION['email'])){
         session_destroy();
-        header("Location: ..\login.php"); 
+        header("Location: ..\Login.php"); 
     }
     
     date_default_timezone_set('America/Sao_Paulo');
@@ -20,7 +18,12 @@
 ?>
 
 <html>    
-    <head>        
+    <head>      
+        
+        <?php include('validacao/ImportCss.html') ?>
+        
+        <link rel="shortcut icon" type="image/x-icon" href="resources/erp-logo.ico"/>
+        
         <style>            
             body, html {
                 height: 100%;
@@ -33,9 +36,9 @@
     <body>       
         
         <div class="container-fluid" style="margin-top: 10px">
-            <form action="login.php" method="POST">                
+            <form action="CopiarMidia.php" method="POST">                
                 <button type="submit" name="login" class="btn btn-danger">
-                    Logout <span class="glyphicon glyphicon-log-out"></span>
+                    <span class="glyphicon glyphicon-menu-left"></span> Voltar
                 </button>                
             </form>
         </div>
@@ -61,5 +64,8 @@
                 ?>           
             </tbody>
         </table>
+        
+        <?php include('validacao/ImportJs.php') ?>
+        
     </body>    
 </html>

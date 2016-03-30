@@ -1,6 +1,6 @@
 <?php
 
-include('conexao.php');
+include('Conexao.php');
 
 if (isset($_POST)) {
     
@@ -25,17 +25,17 @@ if (isset($_POST)) {
         if ($senha === $confirmarSenha) {
             echo 'Email: ' . $email . "<br>";
             echo 'Senha: ' . $senha . "<br><br>";
-            $senha = md5(senha);
+            $senha = md5($senha);
             $insert = "insert into usuario values (0,'$email','$senha')";
             mysqli_query($conecta, $insert);
-            exibirMensagemAoUsuario("success", "Cadastrado com sucesso!");
-            header("Location: ../novoCadastro.php");
+            exibirMensagemAoUsuario("success", "Usuário cadastrado com sucesso!");
+            header("Location: ../Cadastrar.php");
         } else {
-            exibirMensagemAoUsuario("error", "Credenciais incorretas!");
-            header("Location: ../novoCadastro.php");
+            exibirMensagemAoUsuario("error", "Senhas não conferem!");
+            header("Location: ../Cadastrar.php");
         }
     } else {
-        exibirMensagemAoUsuario("warning", "Usuário já existe!");
-        header("Location: ../novoCadastro.php");
+        exibirMensagemAoUsuario("warning", "Usuário já cadastrado!");
+        header("Location: ../Cadastrar.php");
     }
 }

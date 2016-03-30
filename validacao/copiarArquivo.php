@@ -1,11 +1,5 @@
-<?php include('conexao.php') ?>
-<?php include('./import.html') ?>
-<?php
+<?php include('conexao.php');
 
-    session_start();        
-
-    $_SESSION['cont'] = $_SESSION['cont'] + 1;
-    
     $versao = $_POST['versao'];
     $release = $_POST['release'];
     
@@ -13,11 +7,19 @@
     
     $fileDE = "\\\\" . '10.1.28.122' . "\\" . 'midia' . "\\" . 'Sapiens' . "\\" . $versao . "\\" . $release . "\\" . 'Build';
     
-    $caminhoPARA = "\\\\" . 'seniorpdc' . "\\" . 'midia' . "\\" . 'Sapiens' . "\\" . $versao . "\\" . $release . "\\" . 'Liberada';
-        
+    //$caminhoPARA = "\\\\" . 'seniorpdc' . "\\" . 'midia' . "\\" . 'Sapiens' . "\\" . $versao . "\\" . $release . "\\" . 'Liberada';
+      
+    //$caminhoPARA = "\\\\" . 'seniorpdc' . "\\" . 'Usuarios' . "\\" . 'BrunoSouza' . "\\" . '200';
+    
+    $caminhoPARA = "C:\\200";
+    
     $caminhoDE = $fileDE . "\\" . verificarMaiorNome($fileDE);
-            
-    full_copy($caminhoDE, $caminhoPARA);
+      
+    echo 'DE: ' . $caminhoDE;
+    echo '<br>PARA: ' . $caminhoPARA;
+    
+    cpy($caminhoDE, $caminhoPARA);
+    //full_copy($caminhoDE, $caminhoPARA);
             
     function verificarMaiorNome($caminho) {
     
@@ -34,16 +36,47 @@
         return $ultimaGerada;
     }
     
-    function full_copy($source,$target){
-                       
-        if(!file_exists($source)){
-            $_SESSION['status'] = 'CaminhoNaoExiste';
-            $_SESSION['versao'] = $_POST['versao'];
-            $_SESSION['release'] = $_POST['release'];
-            $_SESSION['cadastrou'] = 'ok'; 
-            header("Location: index.php");
-        } else {
+    function cpy($source, $dest){
+                      
+        //chmod('\\\\seniorpdc\\', 0777);
+        if (!file_exists($dest) && !is_dir($dest)) {            
+            mkdir($dest, 777, true);         
+        } 
         
+        if(true){
+            if(is_dir($source)) {        
+                $dir_handle=opendir($source);
+                while($file=readdir($dir_handle)){
+                    if($file!="." && $file!=".."){
+                        if(is_dir($source."/".$file)){
+                            if(!is_dir($dest."/".$file)){
+                                mkdir($dest."/".$file, 0700, true);
+                            }
+                            cpy($source."/".$file, $dest."/".$file);
+                        } else {
+                            copy($source."/".$file, $dest."/".$file);
+                        }
+                    }
+                }
+                closedir($dir_handle);
+            } else {
+                copy($source, $dest);
+            }
+            
+            exibirMensagemAoUsuario('success', 'Mídia copiada com sucesso!');
+            header("Location: ../CopiarMidia.php");
+        }
+    }
+    
+    function full_copy($source,$target){
+        
+        if(!file_exists($source)){            
+            //exibirMensagemAoUsuario('error', 'Caminho da mídia não existe!');
+            $_SESSION['versao'] = $_POST['versao'];
+            $_SESSION['release'] = $_POST['release'];            
+            header("Location: ../CopiarMidia.php");
+        } else {
+
             if(is_dir($source)){
 
                 @mkdir($target);
@@ -64,22 +97,17 @@
 
                     copy($Entry, $target . '/' . $entry);
 
-                    $_SESSION['status'] = 'MidiaCopiada';                    
+                    //exibirMensagemAoUsuario('success', 'Mídia copiada com sucesso!');                    
                 }
 
                 $d->close();
 
             } else {
-
-                if(!file_exists($target)){
-                    mkdir($target, 0777, true);                    
-                }
-
-                copy($source, $target);
-                $_SESSION['status'] = 'MidiaCopiada';
+                copy($source, $target);                
             }
+
+            //exibirMensagemAoUsuario('success', 'Mídia copiada com sucesso!');            
         }
     }
     
-    header("Location: index.php");
-?>
+    //header("Location: ../CopiarMidia.php");

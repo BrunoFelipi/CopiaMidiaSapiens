@@ -1,8 +1,4 @@
-<?php include('conexao.php') ?>
-<?php include('import.html') ?>
-<?php include ('./index.php') ?>
-
-<?php
+<?php include('Conexao.php');
     
     date_default_timezone_set('America/Sao_Paulo');
 
@@ -14,5 +10,4 @@
     session_unset();
     session_destroy();    
     
-    header("Location: index.php");    
-?>
+    header("Location: CopiarMidia.php");    

@@ -6,6 +6,6 @@
 <script src="lobibox-master/dist/js/lobibox.min.js"></script>
 <script>
     function inicializa() {
-        <?= $script_js ?>
+        <?= $script_js ?>        
     }
 </script>
