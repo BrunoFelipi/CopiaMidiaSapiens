@@ -1,12 +1,14 @@
 <?php
-include('validacao/lobibox.php');
+include('validacao/Lobibox.php');
 ?>
 
 <html>    
     <head>        
 
-        <?php include('validacao/importCss.html') ?>
+        <?php include('validacao/ImportCss.html') ?>
 
+        <link rel="shortcut icon" type="image/x-icon" href="resources/erp-logo.ico"/>
+        
         <style>
             body, html {
                 height: 100%;
@@ -157,15 +159,15 @@ include('validacao/lobibox.php');
             <div class="card card-container">                
 
                 <div class="container-content">
-                    <a href="login.php"><span class="glyphicon glyphicon-arrow-left"></span></a>
+                    <a href="Index.php"><span class="glyphicon glyphicon-arrow-left"></span></a>
                 </div>
 
-    <!-- <img class="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" /> -->
-    <!-- <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" /> -->
+                <!-- <img class="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" /> -->
+                <!-- <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" /> -->
                 <img id="profile-img" class="profile-img-card" src="resources/erp-logo.png" />
                 <p id="profile-name" class="profile-name-card"></p>
 
-                <form action="validacao/inserirCadastro.php" method="POST" class="form-signin">
+                <form action="validacao/InserirCadastro.php" method="POST" class="form-signin">
 
                     <span id="reauth-email" class="reauth-email"></span>
 
@@ -178,6 +180,6 @@ include('validacao/lobibox.php');
             </div>
         </div>      
 
-        <?php include('validacao/importJs.php') ?>
+        <?php include('validacao/ImportJs.php') ?>
     </body>    
 </html>
