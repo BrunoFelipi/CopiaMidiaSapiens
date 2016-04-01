@@ -3,6 +3,7 @@
     $versao = $_POST['versao'];
     $release = $_POST['release'];
     
+        
     $ultimaGerada = '';
     
     $fileDE = "\\\\" . '10.1.28.122' . "\\" . 'midia' . "\\" . 'Sapiens' . "\\" . $versao . "\\" . $release . "\\" . 'Build';
@@ -11,16 +12,51 @@
       
     //$caminhoPARA = "\\\\" . 'seniorpdc' . "\\" . 'Usuarios' . "\\" . 'BrunoSouza' . "\\" . '200';
     
-    $caminhoPARA = "C:\\200";
-    
-    $caminhoDE = $fileDE . "\\" . verificarMaiorNome($fileDE);
+    //$caminhoDE = $fileDE . "\\" . verificarMaiorNome($fileDE);
       
-    echo 'DE: ' . $caminhoDE;
-    echo '<br>PARA: ' . $caminhoPARA;
+    $caminhoDE = "\\\\seniorpdc\\midia\\Sapiens\\5.8.8\\10\\Liberada";
     
-    cpy($caminhoDE, $caminhoPARA);
+    //echo 'DE: ' . $caminhoDE;
+    //echo '<br>PARA: ' . $caminhoPARA;
+    
+    //mkdir("\\\\seniorpdc\\usuarios\\BrunoSouza\\teste\\novo", 0777, true); 
+        
+    //mkdir("A:////teste", 777, true); 
+    
+    //shell_exec("subst a:\\seniorpdc\usuarios\brunosouza");
+    
+    //exec('subst /d a:');
+    
+    //exec('subst a: \\\\seniorpdc\\usuarios\\brunosouza');
+     
+    //echo sprintf('%o', fileperms('a:\\'))."<br/>";
+    
+    
+    //chmod('a:\\', 40777);        
+    //exec('mkdir a:\\teste2');    
+    //shell_exec("mkdir a:\\teste");
+        
+    //dirs('A:\\\\teste2');    
+        
+    //cpy($caminhoDE, $caminhoPARA);
     //full_copy($caminhoDE, $caminhoPARA);
-            
+    function mkdirs($dir, $mode = 0777, $recursive = true) {
+                
+        if( is_null($dir) || $dir === "" ){
+          return FALSE;
+        }
+        
+        if( is_dir($dir) || $dir === "/" ){
+          return TRUE;
+        }
+        
+        if( mkdirs(dirname($dir), $mode, true) ){
+          return mkdir($dir, $mode, true);
+        }
+        
+        return FALSE;        
+    }
+    
     function verificarMaiorNome($caminho) {
     
         $files = array_slice(scandir($caminho), 2);            
@@ -34,11 +70,11 @@
         }
 
         return $ultimaGerada;
+        
     }
     
     function cpy($source, $dest){
                       
-        //chmod('\\\\seniorpdc\\', 0777);
         if (!file_exists($dest) && !is_dir($dest)) {            
             mkdir($dest, 777, true);         
         } 

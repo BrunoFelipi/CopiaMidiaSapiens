@@ -46,9 +46,11 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <td><font color="white"><b>ID</b></font></td>
-                    <td><font color="white"><b>Maquina</b></font></td>
+                    <td><font color="white"><b>#</b></font></td>
+                    <td><font color="white"><b>Usuário</b></font></td>
+                    <td><font color="white"><b>Máquina</b></font></td>
                     <td><font color="white"><b>Data / Hora - Cópia</b></font></td>
+                    <td><font color="white"><b>Versão</b></font></td>
                 </tr> 
             </thead>
             <tbody>
@@ -57,8 +59,10 @@
                 while($consulta = mysqli_fetch_array($result)){
                     echo "<tr>";
                     echo "<td><font color=#d9d9d9>".$consulta["id"]."</font></td>";
+                    echo "<td><font color=#d9d9d9>".$consulta["usuario"]."</font></td>";
                     echo "<td><font color=#d9d9d9>".$consulta["maquina"]."</font></td>";
                     echo "<td><font color=#d9d9d9>".$consulta["data"]."</font></td>";
+                    echo "<td><font color=#d9d9d9>".$consulta["versao"]."</font></td>";
                     echo "</tr>";
                 }
                 ?>           

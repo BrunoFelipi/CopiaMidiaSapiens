@@ -1,14 +1,12 @@
-<?php 
-include('validacao/Conexao.php');
+<?php
 include('validacao/Lobibox.php');
-
 ?>
 
 <html>    
-    <head>      
-        
+    <head>        
+
         <?php include('validacao/ImportCss.html') ?>
-        
+
         <link rel="shortcut icon" type="image/x-icon" href="resources/erp-logo.ico"/>
         
         <style>
@@ -147,51 +145,39 @@ include('validacao/Lobibox.php');
             .forgot-password:focus{
                 color: rgb(12, 97, 33);
             }
-            
+
             .glyphicon.glyphicon-arrow-left {
                 font-size: 20px;
             }
-            
-        </style>             
-        
+
+        </style> 
+
     </head>
-        
+
     <body onload="inicializa()">        
         <div class="container">
-            <div class="card card-container">
-                                
-                <!--
+            <div class="card card-container">                
+
                 <div class="container-content">
                     <a href="Index.php"><span class="glyphicon glyphicon-arrow-left"></span></a>
                 </div>
-                -->
-                
+
                 <!-- <img class="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" /> -->
                 <!-- <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" /> -->
                 <img id="profile-img" class="profile-img-card" src="resources/erp-logo.png" />
                 <p id="profile-name" class="profile-name-card"></p>
-                
-                <form class="form-signin" method="POST" action="validacao/ValidarLogin.php">
-                    <span id="reauth-email" class="reauth-email"></span>
-                    <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
-                    <input type="password" name="senha" id="inputPassword" class="form-control" placeholder="Senha" required>
-                    
-                    <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Entrar</button>
-                                        
-                </form><!-- /form -->
-                
-                <a href="EsqueceuSenha.php" class="forgot-password" style="text-align: left">
-                    Esqueceu sua senha?
-                </a>
 
-                <a href="Cadastrar.php" class="forgot-password" style="padding-left: 43">
-                    Cadastre-se
-                </a>
-                
+                <form action="validacao/EnviarEmail.php" method="POST" class="form-signin">
+
+                    <span id="reauth-email" class="reauth-email"></span>
+
+                    <input type="email" id="inputEmail" name="email" class="form-control" placeholder="Email" required autofocus>
+                    
+                    <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Enviar Email</button>
+                </form>                              
             </div>
-        </div>
-        
+        </div>      
+
         <?php include('validacao/ImportJs.php') ?>
-        
     </body>    
 </html>

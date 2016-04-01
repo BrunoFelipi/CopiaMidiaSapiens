@@ -21,6 +21,8 @@ if (isset($_POST)) {
         }
     }
 
+    echo 'Count: ' . $count . '<br>';
+    
     if ($count === 0) {
         if ($senha === $confirmarSenha) {
             echo 'Email: ' . $email . "<br>";
@@ -28,14 +30,14 @@ if (isset($_POST)) {
             $senha = md5($senha);
             $insert = "insert into usuario values (0,'$email','$senha')";
             mysqli_query($conecta, $insert);
-            exibirMensagemAoUsuario("success", "Usuário cadastrado com sucesso!");
-            header("Location: ../Cadastrar.php");
+            exibirMensagemAoUsuario("Success", "Usuário cadastrado com sucesso!");
+            //header("Location: ../Cadastrar.php");
         } else {
-            exibirMensagemAoUsuario("error", "Senhas não conferem!");
-            header("Location: ../Cadastrar.php");
+            exibirMensagemAoUsuario("Error", "Senhas não conferem!");
+            //header("Location: ../Cadastrar.php");
         }
     } else {
-        exibirMensagemAoUsuario("warning", "Usuário já cadastrado!");
-        header("Location: ../Cadastrar.php");
+        exibirMensagemAoUsuario("Warning", "Usuário já cadastrado!");
+        //header("Location: ../Cadastrar.php");
     }
 }
