@@ -1,14 +1,14 @@
 <?php include('Conexao.php');
 
-    if(!isset($_SESSION['email']) or !isset($_SESSION['senha'])){
-        session_destroy();
-        header("Location: ..\Index.php");
-    }
-
-    $email = $_POST['email'];    
-    $senha = md5($_POST['senha']);
+    session_start();
+    
+    $_SESSION['email'] = $_POST['email'];
+    $_SESSION['senha'] = md5($_POST['senha']);
+    
+    $email = $_SESSION['email'];    
+    $senha = $_SESSION['senha'];
             
-    $select = "select * from usuario where email='" . $email ."'";//"' and senha='" . $senha . "'";
+    $select = "select * from usuario where email='" . $email . "'";//"' and senha='" . $senha . "'";
     
     $result = mysqli_query($conecta, $select);
     
@@ -20,6 +20,7 @@
             session_start();
             $_SESSION['id'] = $consulta['id'];
             $_SESSION['email'] = $consulta['email'];
+            $_SESSION['senha'] = $consulta['senha'];
             header("Location: ..\CopiarMidia.php");  
             $usuJaExist = false;
             $senhaInvalida = false;
@@ -30,9 +31,9 @@
     }
         
     if($usuJaExist){
-        exibirMensagemAoUsuario("error", "Usuário não existe!");   
+        exibirMensagemAoUsuario('error', 'Credenciais inválidas!');   
         header("Location: ..\Index.php");
     } else if($senhaInvalida){
-        exibirMensagemAoUsuario("error", "Usuário ou Senha inválido!");    
+        exibirMensagemAoUsuario('error', 'Credenciais inválidas!');    
         header("Location: ..\Index.php");
     }  

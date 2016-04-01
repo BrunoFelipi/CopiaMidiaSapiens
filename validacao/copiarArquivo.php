@@ -1,5 +1,11 @@
 <?php include('conexao.php');
 
+    session_start();
+
+    if(!isset($_SESSION['email']) or !isset($_SESSION['senha'])){
+        header("Location: Index.php");        
+    }
+
     $versao = $_POST['versao'];
     $release = $_POST['release'];
     

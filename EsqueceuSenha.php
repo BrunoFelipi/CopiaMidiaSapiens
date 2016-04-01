@@ -1,5 +1,5 @@
 <?php
-include('validacao/Lobibox.php');
+include('validacao/Lobibox.php');    
 ?>
 
 <html>    

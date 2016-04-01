@@ -1,11 +1,10 @@
 <?php
-
     include('Conexao.php');
 
     session_start();
-    
-    $_SESSION['destEmail'] = $_SESSION['email'];    
-    $destinatario = $_SESSION['destEmail'];    
+
+    $destinatario = $_POST['email'];    
+    //$destinatario = 'bruno.souza@senior.com.br';    
     
     $usuExist = true;
     
@@ -21,14 +20,12 @@
     }
     
     if(!$usuExist){
-        exibirMensagemAoUsuario('Error', 'Usuário não existe!');
+        exibirMensagemAoUsuario('error', 'Usuário não existe!');
         header("Location: ..\EsqueceuSenha.php");
     } else {
         enviarEmail($destinatario);
     }
-       
-    $_SESSION['destEmail'] = null;
-    
+         
     function enviarEmail($emailDestino){
         
         $to  = $emailDestino;
@@ -67,7 +64,7 @@
             exibirMensagemAoUsuario('success', 'Email enviado com sucesso!');
             header("Location: ..\Index.php");
         } else {
-            exibirMensagemAoUsuario('Error', 'Falha ao enviar o email!');
+            exibirMensagemAoUsuario('error', 'Falha ao enviar o email!');
             header("Location: ..\EsqueceuSenha.php");
         }
     }

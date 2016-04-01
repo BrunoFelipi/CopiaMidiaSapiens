@@ -1,4 +1,12 @@
-<?php include('validacao/Conexao.php') ?>
+<?php include('validacao/Conexao.php');
+
+    session_start();
+
+    if(!isset($_SESSION['email']) or !isset($_SESSION['senha'])){
+        header("Location: Index.php");        
+    }
+
+?>
 
 <html>
     <head>
@@ -16,7 +24,7 @@
             
         <div class="container-fluid" style="margin-top: 10px">
             <form method="POST" action="">                
-                <button type="button" class="btn btn-danger" onclick="window.open('Index.php','_self')">
+                <button type="button" class="btn btn-danger" onclick="window.open('validacao/Logout.php','_self')">
                     Logout <span class="glyphicon glyphicon-log-out"></span>
                 </button>                
                 

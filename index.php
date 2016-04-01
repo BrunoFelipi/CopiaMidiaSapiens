@@ -1,7 +1,6 @@
 <?php 
 include('validacao/Conexao.php');
 include('validacao/Lobibox.php');
-
 ?>
 
 <html>    
