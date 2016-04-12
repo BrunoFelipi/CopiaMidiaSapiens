@@ -4,13 +4,16 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Program%20Files/Xampp/htdocs/CopiaMidiaSapiens/Consulta.php</file>
-            <file>file:/C:/Program%20Files/Xampp/htdocs/CopiaMidiaSapiens/validacao/InserirInfo.php</file>
+            <file>file:/C:/Program%20Files/Xampp/htdocs/CopiaMidiaSapiens/EsqueceuSenha.php</file>
             <file>file:/C:/Program%20Files/Xampp/htdocs/CopiaMidiaSapiens/Cadastrar.php</file>
+            <file>file:/C:/Program%20Files/Xampp/htdocs/CopiaMidiaSapiens/AlterarSenha.php</file>
             <file>file:/C:/Program%20Files/Xampp/htdocs/CopiaMidiaSapiens/validacao/Conexao.php</file>
             <file>file:/C:/Program%20Files/Xampp/htdocs/CopiaMidiaSapiens/CopiarMidia.php</file>
-            <file>file:/C:/Program%20Files/Xampp/htdocs/CopiaMidiaSapiens/validacao/ImportJs.php</file>
             <file>file:/C:/Program%20Files/Xampp/htdocs/CopiaMidiaSapiens/Index.php</file>
+            <file>file:/C:/Program%20Files/Xampp/htdocs/CopiaMidiaSapiens/validacao/AlterSenha.php</file>
             <file>file:/C:/Program%20Files/Xampp/htdocs/CopiaMidiaSapiens/validacao/ValidarLogin.php</file>
+            <file>file:/C:/Program%20Files/Xampp/htdocs/CopiaMidiaSapiens/validacao/EnviarEmail.php</file>
+            <file>file:/C:/Program%20Files/Xampp/htdocs/CopiaMidiaSapiens/validacao/InserirCadastro.php</file>
             <file>file:/C:/Program%20Files/Xampp/htdocs/CopiaMidiaSapiens/validacao/CopiarArquivo.php</file>
         </group>
     </open-files>

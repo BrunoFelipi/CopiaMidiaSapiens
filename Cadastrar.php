@@ -7,6 +7,7 @@ include('validacao/Lobibox.php');
 
         <?php include('validacao/ImportCss.html') ?>
 
+        <title>Cadastre-se</title>
         <link rel="shortcut icon" type="image/x-icon" href="resources/erp-logo.ico"/>
         
         <style>

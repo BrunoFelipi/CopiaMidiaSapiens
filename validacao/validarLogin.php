@@ -5,8 +5,8 @@
     $_SESSION['email'] = $_POST['email'];
     $_SESSION['senha'] = md5($_POST['senha']);
     
-    $email = $_SESSION['email'];    
-    $senha = $_SESSION['senha'];
+    $email = addslashes($_SESSION['email']);
+    $senha = addslashes($_SESSION['senha']);
             
     $select = "select * from usuario where email='" . $email . "'";//"' and senha='" . $senha . "'";
     

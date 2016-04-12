@@ -1,70 +1,54 @@
-<?php include('conexao.php');
+<?php include('Conexao.php');
 
     session_start();
 
     if(!isset($_SESSION['email']) or !isset($_SESSION['senha'])){
         header("Location: Index.php");        
     }
-
-    $versao = $_POST['versao'];
-    $release = $_POST['release'];
     
+    $status = 'falha';
+    $release = $_POST['release'];
+    $versao = $_POST['versao'];  
+    $email = $_SESSION['email'];  
+    
+    echo 'Status: ' . $status;
+    echo '<br>Release: ' . $release;
+    echo '<br>Versao: ' . $versao;
+    echo '<br>Email: ' . $email;
         
     $ultimaGerada = '';
-    
     $fileDE = "\\\\" . '10.1.28.122' . "\\" . 'midia' . "\\" . 'Sapiens' . "\\" . $versao . "\\" . $release . "\\" . 'Build';
     
-    //$caminhoPARA = "\\\\" . 'seniorpdc' . "\\" . 'midia' . "\\" . 'Sapiens' . "\\" . $versao . "\\" . $release . "\\" . 'Liberada';
-      
-    //$caminhoPARA = "\\\\" . 'seniorpdc' . "\\" . 'Usuarios' . "\\" . 'BrunoSouza' . "\\" . '200';
+    $caminhoDE = $fileDE . "\\" . verificarMaiorNome($fileDE,$email,$versao,$release);
+    $caminhoPARA = '\\\\seniorpdc\\midia\\Sapiens\\' . $versao . '\\' . $release . '\\Liberada';
+       
+    recurse_copy($caminhoDE, $caminhoPARA, $email, $versao, $release, $status);
     
-    //$caminhoDE = $fileDE . "\\" . verificarMaiorNome($fileDE);
-      
-    $caminhoDE = "\\\\seniorpdc\\midia\\Sapiens\\5.8.8\\10\\Liberada";
-    
-    //echo 'DE: ' . $caminhoDE;
-    //echo '<br>PARA: ' . $caminhoPARA;
-    
-    //mkdir("\\\\seniorpdc\\usuarios\\BrunoSouza\\teste\\novo", 0777, true); 
+    function delete($path){
         
-    //mkdir("A:////teste", 777, true); 
-    
-    //shell_exec("subst a:\\seniorpdc\usuarios\brunosouza");
-    
-    //exec('subst /d a:');
-    
-    //exec('subst a: \\\\seniorpdc\\usuarios\\brunosouza');
-     
-    //echo sprintf('%o', fileperms('a:\\'))."<br/>";
-    
-    
-    //chmod('a:\\', 40777);        
-    //exec('mkdir a:\\teste2');    
-    //shell_exec("mkdir a:\\teste");
-        
-    //dirs('A:\\\\teste2');    
-        
-    //cpy($caminhoDE, $caminhoPARA);
-    //full_copy($caminhoDE, $caminhoPARA);
-    function mkdirs($dir, $mode = 0777, $recursive = true) {
-                
-        if( is_null($dir) || $dir === "" ){
-          return FALSE;
+        if (is_dir($path) === true){
+            $files = array_diff(scandir($path), array('.', '..'));
+
+            foreach ($files as $file){
+                Delete(realpath($path) . '/' . $file);
+            }
+
+            return rmdir($path);
+        } else if (is_file($path) === true) {
+            return unlink($path);
         }
-        
-        if( is_dir($dir) || $dir === "/" ){
-          return TRUE;
-        }
-        
-        if( mkdirs(dirname($dir), $mode, true) ){
-          return mkdir($dir, $mode, true);
-        }
-        
-        return FALSE;        
+
+        return false;
     }
     
-    function verificarMaiorNome($caminho) {
+    function verificarMaiorNome($caminho,$email,$versao,$release) {
     
+        if(!is_dir($caminho) && !file_exists($caminho)){
+            $status = 'falha';    
+            exibirMensagemAoUsuario('error', 'Caminho de origem não existe!');
+            header("Location: ../CopiarMidia.php");
+        }
+        
         $files = array_slice(scandir($caminho), 2);            
         $ultimaGerada = '';
         
@@ -75,81 +59,53 @@
             }
         }
 
-        return $ultimaGerada;
-        
+        return $ultimaGerada;        
     }
     
-    function cpy($source, $dest){
-                      
-        if (!file_exists($dest) && !is_dir($dest)) {            
-            mkdir($dest, 777, true);         
-        } 
+    function recurse_copy($src,$dst,$email,$versao,$release) { 
         
-        if(true){
-            if(is_dir($source)) {        
-                $dir_handle=opendir($source);
-                while($file=readdir($dir_handle)){
-                    if($file!="." && $file!=".."){
-                        if(is_dir($source."/".$file)){
-                            if(!is_dir($dest."/".$file)){
-                                mkdir($dest."/".$file, 0700, true);
-                            }
-                            cpy($source."/".$file, $dest."/".$file);
-                        } else {
-                            copy($source."/".$file, $dest."/".$file);
-                        }
-                    }
-                }
-                closedir($dir_handle);
-            } else {
-                copy($source, $dest);
+        if(!is_dir($src) && !file_exists($src)){
+            inserirInfo($email, $versao, $release, 'falha');
+            exibirMensagemAoUsuario('error', 'Caminho de origem não existe!');
+            header("Location: ../CopiarMidia.php");
+        } else {
+                    
+            $caminho = "\\\\seniorpdc\\midia\\Sapiens\\" . $versao . "\\" . $release;
+    
+            if(is_dir($caminho)){
+                delete($caminho);    
+            }
+                    
+            $dir = opendir($src);             
+
+            if(!file_exists($dst) && !is_dir($dst)) {
+                mkdir($dst, 0777, true);
             }
             
+            while(false !== ( $file = readdir($dir)) ) { 
+                if (( $file != '.' ) && ( $file != '..' )) { 
+                    if ( is_dir($src . '/' . $file) ) { 
+                        recurse_copy($src . '/' . $file,$dst . '/' . $file,$email,$versao,$release); 
+                    } else {                         
+                        copy($src . '/' . $file,$dst . '/' . $file); 
+                    } 
+                } 
+            } 
+            
+            closedir($dir);            
+            inserirInfo($email, $versao, $release, 'sucesso');
             exibirMensagemAoUsuario('success', 'Mídia copiada com sucesso!');
             header("Location: ../CopiarMidia.php");
         }
     }
-    
-    function full_copy($source,$target){
+       
+    function inserirInfo($email, $versao, $release, $status){
         
-        if(!file_exists($source)){            
-            //exibirMensagemAoUsuario('error', 'Caminho da mídia não existe!');
-            $_SESSION['versao'] = $_POST['versao'];
-            $_SESSION['release'] = $_POST['release'];            
-            header("Location: ../CopiarMidia.php");
-        } else {
+        date_default_timezone_set('America/Sao_Paulo');
+        $maquina = gethostbyaddr($_SERVER['REMOTE_ADDR']);        
+        $data = date('d-m-Y') . ' ' .date('H:i:s');
 
-            if(is_dir($source)){
-
-                @mkdir($target);
-                $d = dir($source);
-
-                while(TRUE == ($entry = $d->read())){
-
-                    if($entry == '.' || $entry == '..') {
-                        continue;
-                    }
-
-                    $Entry = $source . '/' . $entry; 
-
-                    if(is_dir($Entry)){
-                        full_copy($Entry, $target . '/' . $entry);
-                        continue;
-                    }
-
-                    copy($Entry, $target . '/' . $entry);
-
-                    //exibirMensagemAoUsuario('success', 'Mídia copiada com sucesso!');                    
-                }
-
-                $d->close();
-
-            } else {
-                copy($source, $target);                
-            }
-
-            //exibirMensagemAoUsuario('success', 'Mídia copiada com sucesso!');            
-        }
+        $conecta = mysqli_connect('localhost', 'root', '','sapiens');
+        $insert = "insert into info values (0, '$email', '$maquina', '$data', '$versao.$release', '$status')";
+        mysqli_query($conecta, $insert);        
     }
-    
-    //header("Location: ../CopiarMidia.php");

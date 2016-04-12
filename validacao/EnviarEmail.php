@@ -3,62 +3,54 @@
 
     session_start();
 
-    $destinatario = $_POST['email'];    
-    //$destinatario = 'bruno.souza@senior.com.br';    
+    $destinatario = $_POST['email'];
     
-    $usuExist = true;
+    $usuExist = false;
     
     $select = "select * from usuario where email='" . $destinatario ."'";//"' and senha='" . $senha . "'";
     $result = mysqli_query($conecta, $select);
     
     while($consulta = mysqli_fetch_array($result)){
         if($consulta["email"] === $destinatario){            
-            $usuExist = true;
+            $usuExist = true; 
+            $token = $consulta['token'];
         } else {
             $usuExist = false;
         }        
     }
     
-    if(!$usuExist){
+    if($usuExist === false){        
         exibirMensagemAoUsuario('error', 'Usuário não existe!');
         header("Location: ..\EsqueceuSenha.php");
-    } else {
-        enviarEmail($destinatario);
+    } else {                
+        enviarEmail($destinatario, $token);
     }
-         
-    function enviarEmail($emailDestino){
+    
+    function enviarEmail($emailDestino, $token){
         
         $to  = $emailDestino;
         
-        $subject = 'Birthday Reminders for August';
+        $subject = 'Esqueceu sua senha?';
 
         $message = '
         <html>
         <head>
-          <title>Mensagem automática, favor não responder!</title>
+          <title>Esqueceu sua senha?</title>
         </head>
         <body>
-          <p>Here are the birthdays upcoming in August!</p>
-          <table>
-            <tr>
-              <th>Person</th><th>Day</th><th>Month</th><th>Year</th>
-            </tr>
-            <tr>
-              <td>Joe</td><td>3rd</td><td>August</td><td>1970</td>
-            </tr>
-            <tr>
-              <td>Sally</td><td>17th</td><td>August</td><td>1973</td>
-            </tr>
-          </table>
+          <p>Mensagem automática, favor não responder!</p>
+          
+          <p><a href="http://pcbnu006300/CopiaMidiaSapiens/AlterarSenha.php?token=' . $token .'">Clique aqui</a> para alterar sua senha! </p>
+
         </body>
         </html>
         ';
 
         $headers  = 'MIME-Version: 1.0' . "\r\n";
-        $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+        $headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
 
         $headers .= "To: ". $to ." \r\n";
-        $headers .= 'From: Copia Midia Sapiens' . "\r\n"; 
+        $headers .= 'From: Copia Mídia Sapiens' . "\r\n"; 
 
         if(mail($to, $subject, $message, $headers)){
             exibirMensagemAoUsuario('success', 'Email enviado com sucesso!');

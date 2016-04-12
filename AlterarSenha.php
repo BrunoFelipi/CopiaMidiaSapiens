@@ -1,5 +1,23 @@
 <?php
-include('validacao/Lobibox.php');    
+include('validacao/Lobibox.php');
+include('validacao/Conexao.php');
+?>
+
+<?php
+            
+    $select = "select * from usuario where token='" . $_GET['token'] . "'";    
+
+    $result = mysqli_query($conecta, $select);
+
+    $row = mysqli_num_rows($result);
+
+    if($row === 0){                
+        header("Location: Index.php");
+    } else {
+        while ($consulta = mysqli_fetch_array($result)) {
+            $usu = $consulta['email'];            
+        }
+    } 
 ?>
 
 <html>    
@@ -7,7 +25,7 @@ include('validacao/Lobibox.php');
 
         <?php include('validacao/ImportCss.html') ?>
 
-        <title>Esqueceu sua senha?</title>
+        <title>Alterar Senha</title>
         
         <link rel="shortcut icon" type="image/x-icon" href="resources/erp-logo.ico"/>
         
@@ -153,29 +171,31 @@ include('validacao/Lobibox.php');
             }
 
         </style> 
-
+                              
     </head>
 
     <body onload="inicializa()">        
         <div class="container">
             <div class="card card-container">                
-
+         
                 <div class="container-content">
                     <a href="Index.php"><span class="glyphicon glyphicon-arrow-left"></span></a>
                 </div>
-
+                
                 <!-- <img class="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" /> -->
                 <!-- <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" /> -->
                 <img id="profile-img" class="profile-img-card" src="resources/erp-logo.png" />
                 <p id="profile-name" class="profile-name-card"></p>
 
-                <form action="validacao/EnviarEmail.php" method="POST" class="form-signin">
+                <form action="validacao/AlterSenha.php" method="POST" class="form-signin">
 
                     <span id="reauth-email" class="reauth-email"></span>
 
-                    <input type="email" id="inputEmail" name="email" class="form-control" placeholder="Email" required autofocus>
-                    
-                    <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Enviar Email</button>
+                    <input type="email" id="inputEmail" name="email" class="form-control" placeholder="Email" value="<?=$usu?>"required readonly>
+                    <input type="password" id="inputPassword" name="senha" class="form-control" placeholder="Senha" required autofocus>
+                    <input type="password" id="inputPassword" name="confirmarSenha" class="form-control" placeholder="Confirmar Senha" required>
+
+                    <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Alterar Senha</button>
                 </form>                              
             </div>
         </div>      

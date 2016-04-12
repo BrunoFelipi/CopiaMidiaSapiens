@@ -1,5 +1,4 @@
 <?php
-
 $conecta = mysqli_connect('localhost', 'root', '','sapiens');
 
 if (!$conecta) {
